@@ -14,6 +14,9 @@ def find_cheapest_charging_window(prices_ct_per_kwh, charging_power_kw, required
 
     required_charging_time_hours = required_energy_kwh/charging_power_kw
     slot_count = ceil(required_charging_time_hours/0.25)
+
+    if (len(prices_ct_per_kwh) < slot_count): 
+          raise ValueError("Not enough price intervals!")
     charged_per_15mins = charging_power_kw/4
     energy_last_slot = required_energy_kwh - (slot_count-1)*charged_per_15mins
     for startPrice in range(len(prices_ct_per_kwh)-slot_count+1):
